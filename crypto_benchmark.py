@@ -26,8 +26,8 @@ def per_element_cost(bits, n=100):
 
 def main():
     from model import EEGNet
-    n_head = sum(p.numel() for p in EEGNet(20).classifier.parameters())
-    n_full = sum(p.numel() for p in EEGNet(20).parameters())
+    n_head = sum(p.numel() for p in EEGNet(21).classifier.parameters())
+    n_full = sum(p.numel() for p in EEGNet(21).parameters())
     rows = []
     for bits in (1024, 2048):
         te, ta, td = per_element_cost(bits)
