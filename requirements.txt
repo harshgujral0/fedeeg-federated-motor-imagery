@@ -1,0 +1,11 @@
+numpy
+scipy
+pandas
+scikit-learn
+mne
+moabb
+phe
+matplotlib
+# torch: install the CUDA build from https://pytorch.org/get-started/locally/ first
+# optional, makes Paillier ~10x faster:
+# gmpy2

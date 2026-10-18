@@ -1,0 +1,8 @@
+.venv/
+cache/
+results*/
+figures/
+__pycache__/
+*.txt
+!requirements.txt
+crypto_benchmark.csv
