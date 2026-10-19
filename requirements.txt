@@ -2,10 +2,10 @@ numpy
 scipy
 pandas
 scikit-learn
-mne
-moabb
-phe
 matplotlib
-# torch: install the CUDA build from https://pytorch.org/get-started/locally/ first
-# optional, makes Paillier ~10x faster:
-# gmpy2
+mne==1.13.2
+moabb==1.7.2
+phe==1.5.0
+# torch==2.14.1 : install the CUDA 12.6 build first, e.g.
+#   pip install torch --index-url https://download.pytorch.org/whl/cu126
+# optional, makes Paillier much faster: gmpy2

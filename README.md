@@ -40,6 +40,25 @@ fedavg_ft (FedAvg + local fine-tune), encrypted_head, encrypted_full, and `_rep`
 Statistics use CLIENTS as the unit (paired Wilcoxon + Holm + bootstrap CI).
 
 ## Status
-The numpy/pandas/scipy parts (metrics, stats, analysis) were tested on fake data.
-The PyTorch / MOABB / phe parts could NOT be run where this was written: run the
-smoke test (step 1) first and send me any error.
+All code in this repository was run on the authors' machine (Windows, NVIDIA RTX 2050) with Python 3.11.9,
+PyTorch 2.14.1 (CUDA 12.6), MOABB 1.7.2, MNE 1.13.2 and phe 1.5.0. See `REPRODUCE.md` for the exact command
+behind every table and figure of the paper. GPU arithmetic is not bit-exact, so numbers can differ slightly.
+
+## Update: deep analysis (run order)
+```
+python run_experiments.py --datasets 2a lee --n_2a 2 --n_lee 2 --seeds 42 --run_folds 0 --methods solo fedavg fedper --with_null --out_dir results_test   # quick test (also saves models)
+python deep_analysis.py --results results_test
+```
+Runs made BEFORE this update do not contain saved models; deep_analysis skips them.
+Tuning check (does FedAvg lose because of client drift?):
+```
+python run_experiments.py --datasets 2a --rounds 30 --local_epochs 2 --methods solo central fedavg fedper fedavg_ft --out_dir results_tune
+```
+
+## Update 2: evaluation timing for personalised methods
+By default fedper/fedbn are evaluated AFTER the last aggregation (shared layers overwritten by the average,
+local head/BN left as trained on the old backbone). `--eval_local` evaluates the local models right after the
+final local training instead. Run both variants and report which you use:
+```
+python run_experiments.py --datasets 2a lee --n_lee 20 --seeds 42 --run_folds 0 1 --methods solo fedavg fedper fedbn --eval_local --out_dir results_evallocal
+```
